@@ -4,8 +4,11 @@ window.$ = ( function( window, document, fn, nsRegAndEvents, id, s_EventListener
 	};
 	
 	$.i = function( s, context ) {
-		fn.push.apply( this, !s ? fn : s.nodeType || s == window ? [s] : "" + s === s ? /</.test( s ) 
-		? ( ( i = document.createElement( context || 'q' ) ).innerHTML = s, i.children ) : (context&&$(context)[0]||document).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(document.readyState) ? s() : $(document).on('DOMContentLoaded', s) : s );
+		var nl = !s ? fn : s.nodeType || s == window ? [s] : "" + s === s ? /</.test( s ) 
+		? ( ( i = document.createElement( context || 'q' ) ).innerHTML = s, i.children ) : (context&&$(context)[0]||document).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(document.readyState) ? s() : $(document).on('DOMContentLoaded', s) : s;
+		var ar = [];
+		for (var i = 0, n; n = nl[i]; ++i) ar.push(n);
+		fn.push.apply( this, ar );
 	};
 	
 	$.i[ l = 'prototype' ] = ( $.extend = function(obj) {
